@@ -1,27 +1,34 @@
 // 13주차 프로그래밍 실습
 
-// 실습01
+// 실습02
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int main(void)
-{
-    char *pc = NULL;
-    int i = 0;
+struct Book {
+    int number;
+    char title[20];
+};
 
-    pc = (char*)malloc(100*sizeof(char));
-    if (pc == NULL) {
+int main(void) {
+    struct Book *p;
+
+    p = (struct Book *)malloc(2*sizeof(struct Book));
+
+    if (p == NULL) {
         printf("메모리 할당 오류\n");
         return -1;
     }
 
-    for (i=0; i<26; i++) {
-        pc[i] = 'a'+i;
-    }
+    p->number = 1;
+    strcpy(p->title, "C programming");
 
-    pc[i] = '\0'; // NULL 문자 들어감
-    printf("%s\n", pc);
-    free(pc); // malloc & free 세트
+    (p+1)->number = 2;
+    strcpy((p+1)->title, "Electronics");
 
+    printf("%i : %s\n", p->number, p->title);
+    printf("%i : %s\n", (p+1)->number, (p+1)->title);
+    
+    free(p);
     return 0;
 }
